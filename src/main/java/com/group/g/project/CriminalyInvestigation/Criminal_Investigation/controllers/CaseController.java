@@ -71,7 +71,7 @@ public class CaseController {
 
 		//aCase.setUsers(crmUser);
 		aCase.setOfficerName(oficername);
-		theModel.addAttribute("crmcase", aCase);
+		theModel.addAttribute("caseDto", aCase);
 
 		return "addCase-form";
 	}
