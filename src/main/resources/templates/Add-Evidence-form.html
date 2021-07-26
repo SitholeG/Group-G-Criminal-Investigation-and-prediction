@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<title>Register New User Form</title>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Reference Bootstrap files -->
+	<link rel="stylesheet"
+		 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+		<style>
+		.error {color:red}
+	</style>
+
+</head>
+
+<body>
+<div th:replace="~{header :: header}">Header</div>
+<br/>
+<br/>
+<br/>
+	<div class="container ">
+		<div class="container ">
+			Home/<a th:href="@{/case/getCase(caseId=${case.id})}">Case</a>/Add Evidence
+		</div>
+		<div id="loginbox" style="margin-top: 50px;"
+			class="mainbox col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-2">
+			
+			<div class="panel panel-primary">
+
+				<div class="panel-heading">
+					<div class="panel-title">Add New Evidence</div>
+				</div>
+
+				<div style="padding-top: 30px" class="panel-body">
+
+					<!-- Registration Form -->
+					<form th:action="@{/case/processAddEvidenceForm(suspectId=${suspectId},username=${session.user.userName})}"
+						  	   th:object="${evidence}" method="POST"
+						  	   class="form-horizontal">
+
+						<!-- Evidence -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+							<input type="text" th:field="*{evidence}" placeholder="Evidence (*)" class="form-control" />
+						</div>
+
+						<div th:if="${#fields.hasErrors('evidence')}"
+							style="margin-bottom: 25px" class="text-danger">
+							<ul>
+							  <li th:each="err : ${#fields.errors('evidence')}" th:text="'Evidence ' + ${err}" />
+							</ul>						
+						</div>
+
+						<!--Type -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+							<select class="form-control" th:field="*{type}"  id="dropOperator" >
+								<option value="Physical">Physical</option>
+								<option value="Logical">Logical</option>
+							</select>
+						</div>
+						<div th:if="${#fields.hasErrors('type')}"
+							 style="margin-bottom: 25px" class="text-danger">
+							<ul>
+								<li th:each="err : ${#fields.errors('type')}" th:text="'type' + ${err}" />
+							</ul>
+						</div>
+
+						<!-- Rank -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
+							<input type="text" th:field="*{rank}" placeholder="rank (*)" class="form-control" th:errorclass="fieldError" />
+						</div>
+						<div th:if="${#fields.hasErrors('rank')}"
+							style="margin-bottom: 25px" class="text-danger">
+							<ul>
+							  <li th:each="err : ${#fields.errors('rank')}" th:text="'rank ' + ${err}" />
+							</ul>						
+						</div>
+						
+						<!-- note-->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
+							<input type="text" th:field="*{note}" placeholder="note (*)" class="form-control" th:errorclass="fieldError" />
+						</div>
+						<div th:if="${#fields.hasErrors('note')}"
+							style="margin-bottom: 25px" class="text-danger">
+							<ul>
+							  <li th:each="err : ${#fields.errors('note')}" th:text="'note ' + ${err}" />
+							</ul>						
+						</div>
+
+						<!-- Add Button -->
+						<div style="margin-top: 10px" class="form-group">						
+							<div class="col-sm-6 controls">
+								<button type="submit" class="btn btn-primary">Save</button>
+							</div>
+						</div>
+						
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+<br/>
+<br/>
+<div th:replace="footer :: footer"/>
+</body>
+</html>

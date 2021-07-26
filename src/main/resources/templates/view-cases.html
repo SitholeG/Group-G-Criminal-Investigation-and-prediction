@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Open Cases</title>
+</head>
+
+<body>
+<div th:replace="~{header :: header}">Header</div>
+<br/>
+<br/>
+<br/>
+<div class="container">
+<!--    <div>-->
+<!--        User: <span sec:authentication="name"></span>-->
+<!--        <br><br>-->
+<!--        Role(s): <span sec:authentication="principal.authorities"></span>-->
+<!--        <br><br>-->
+
+<!--        &lt;!&ndash; Check for login error &ndash;&gt;-->
+<!--        <div th:if="${session.user}" >-->
+<!--            <p th:text="'First name: ' + ${session.user.firstName} + ', Last name: ' + ${session.user.lastName} + ', Email: ' + ${session.user.email} + ', Role: ' + ${session.user.id}"></p>-->
+<!--        </div>-->
+<!--    </div>-->
+    <h3>Open Cases</h3>
+    <hr>
+
+    <!-- Add a search form -->
+
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>Case Name</th>
+            <th>Note</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="case : ${cases}">
+
+            <td th:text="${case.caseName}" />
+            <td th:text="${case.note}" />
+
+            <td>
+                <!-- Add "update" button/link -->
+                <a th:href="@{/case/getCase(caseId=${case.id})}"
+                   class="btn btn-info btn-sm">
+                    View Case
+                </a>
+
+                <!-- Add "delete" button/link -->
+                <a th:href="@{/case/showPredictionPage(caseId=${case.id})}"
+                   class="btn btn-info btn-sm">
+<!--                   onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">-->
+                    Predict Suspect
+                </a>
+                <a th:href="@{/case/getCaseHistory(caseId=${case.id})}"
+                   class="btn btn-info btn-sm">
+                    <!--                   onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">-->
+                    View History
+                </a>
+
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<br/>
+<br/>
+<div th:replace="footer :: footer"/>
+</body>
+
+</html>
+
+
+

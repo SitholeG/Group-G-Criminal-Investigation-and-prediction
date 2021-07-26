@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Add New Case Form</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Reference Bootstrap files -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+  <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+		.error {color:red}
+	</style>
+</head>
+<body>
+<div th:replace="~{header :: header}">Header</div>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+  <a th:href="@{/}">Home</a>/Case History
+  <h3>Cases History</h3>
+  <hr>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-primary">
+      <tr>
+        <th>Case ID</th>
+        <th>History</th>
+        <th>Actioned Date</th>
+        <th>Actioned user</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="history : ${caseHistory}">
+
+        <td th:text="${history.caseDto.id}" />
+        <td th:text="${history.action}" />
+        <td th:text="${history.date}" />
+        <td th:text="${history.userDto.userName}" />
+      </tr>
+      </tbody>
+    </table>
+</div>
+<br/>
+<br/>
+<div th:replace="footer :: footer"/>
+</body>
+</html>

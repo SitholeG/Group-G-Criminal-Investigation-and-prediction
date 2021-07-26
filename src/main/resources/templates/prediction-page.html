@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Open Cases</title>
+</head>
+<body>
+<div th:replace="~{header :: header}">Header</div>
+<br/>
+<br/>
+<br/>
+<div class="container ">
+    <a th:href="@{/}">Home</a>/Predict Suspect
+<!--    <span style="color:black;font-weight:bold">Suspect Name  :    </span> <span th:text="${suspect.suspectName}" style="color:black;font-weight:bold"></span>-->
+    <h3>Leading Suspect Information</h3>
+    <br/>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>Case ID</th>
+            <th>Suspect ID</th>
+            <th>Suspect Name</th>
+            <th>Mobile</th>
+            <th>Suspect Address</th>
+            <th>Relationship</th>
+            <th>Rank</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="suspect : ${suspect}">
+
+            <td th:text="${suspect.caseDto.id}" />
+            <td th:text="${suspect.id}" />
+            <td th:text="${suspect.suspectName}" />
+            <td th:text="${suspect.mobile}" />
+            <td th:text="${suspect.suspectAddress}" />
+            <td th:text="${suspect.suspectRelationship}" />
+            <td th:text="${suspect.rank}" />
+
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <h3>Evidence linked to suspect</h3>
+    <br/>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>Case ID</th>
+            <th>Suspect ID</th>
+            <th>Evidence</th>
+            <th>Type</th>
+            <th>Rank</th>
+            <th>note</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="evidence : ${suspect.evidence}">
+
+            <td th:text="${suspect.caseDto.id}" />
+            <td th:text="${suspect.id}" />
+            <td th:text="${evidence.evidence}" />
+            <td th:text="${evidence.type}" />
+            <td th:text="${evidence.rank}" />
+            <td th:text="${evidence.note}" />
+            <td th:text="${evidence.date}" />
+
+        </tr>
+        </tbody>
+    </table>
+<!--    <span style="color:black;font-weight:bold">Case Note  :    </span> <span th:text="${case.note}" style="color:black;font-weight:bold"></span>-->
+</div>
+<br/>
+<br/>
+<div th:replace="footer :: footer"/>
+</body>
+</html>

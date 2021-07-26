@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Open Cases</title>
+</head>
+<body>
+<div th:replace="~{header :: header}">Header</div>
+<br/>
+<br/>
+<br/>
+
+<!--<div class="container col-md-6 col-md-offset-3">-->
+<!--    <span style="color:black;font-weight:bold">Case Name  :    </span> <span th:text="${case.caseName}" style="color:black;font-weight:bold"></span>-->
+<!--    <br/>-->
+<!--    <span style="color:black;font-weight:bold">Case Note  :    </span> <span th:text="${case.note}" style="color:black;font-weight:bold"></span>-->
+<!--</div>-->
+<!--col-md-6 col-md-offset-3-->
+
+<div class="container ">
+    <a th:href="@{/}">Home</a>/Case
+    <h3>Suspect</h3>
+    <br/>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Suspect Name</th>
+            <th>Mobile</th>
+            <th>Suspect Address</th>
+            <th>Relationship</th>
+            <th>Rank</th>
+            <th>Note</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="suspect : ${case.suspects}">
+            <td th:text="${suspect.suspectName}"/>
+            <td th:text="${suspect.mobile}"/>
+            <td th:text="${suspect.suspectAddress}"/>
+            <td th:text="${suspect.suspectRelationship}"/>
+            <td th:text="${suspect.rank}"/>
+            <td th:text="${suspect.note}"/>
+            <td sec:authorize="hasRole('ROLE_OFFICER')">
+                <a th:href="@{/case/showAddEvidenceForm(suspectId=${suspect.id})}"
+                   class="btn btn-info btn-sm" sec:authorize="hasRole('ROLE_OFFICER')">
+                    Add Evidence
+                </a>
+                <a th:href="@{/case/viewEvidence(suspectId=${suspect.id})}"
+                   class="btn btn-info btn-sm" sec:authorize="hasRole('ROLE_OFFICER')">
+                    view
+                    Evidence
+                </a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="container ">
+    <a th:href="@{/case/showAddSuspectForm(caseId=${case.id})}"
+       class="btn btn-info btn-sm" sec:authorize="hasRole('ROLE_OFFICER')">
+        Add Suspect
+    </a>
+    <a th:href="@{/case/showConcludeForm(caseId=${case.id})}"
+       class="btn btn-info btn-sm">
+        Conclude Case
+    </a>
+</div>
+<br/>
+<br/>
+<div th:replace="footer :: footer"/>
+</body>
+</html>

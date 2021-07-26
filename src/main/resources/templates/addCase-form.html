@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Case Form</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+		.error {color:red}
+	</style>
+</head>
+<body>
+<div th:replace="~{header :: header}">Header</div>
+<br/>
+<br/>
+<br/>
+
+<div class="container body-content">
+
+    <div id="loginbox" style="margin-top: 50px;"
+         class="mainbox col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-2">
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">
+                <div class="panel-title">Add New case</div>
+            </div>
+
+            <div style="padding-top: 30px" class="panel-body">
+
+                <!-- Add Case Form -->
+                <form th:action="@{/case/processAddCaseForm}"
+                      th:object="${caseDto}" method="POST"
+                      class="form-horizontal">
+
+                    <!-- case name -->
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" th:field="*{caseName}" placeholder="Case name (*)" class="form-control" />
+                    </div>
+
+                    <div th:if="${#fields.hasErrors('caseName')}"
+                         style="margin-bottom: 25px" class="text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('caseName')}" th:text="'Case name ' + ${err}" />
+                        </ul>
+                    </div>
+
+                    <!--Officer user name -->
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+                        <select class="form-control" th:field="*{officerName}"  id="dropOperator" multiple>
+<!--                            <option value="0">select Oficer</option>-->
+                            <option th:each="officer : *{officerName}" th:value="${officer}" th:text="${officer}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${#fields.hasErrors('officerName')}"
+                         style="margin-bottom: 25px" class="text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('officerName')}" th:text="'officerName' + ${err}" />
+                        </ul>
+                    </div>
+
+                    <!--Status -->
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+                        <select class="form-control" th:field="*{status}"  id="dropOperator" >
+                            <option value="Active">Active</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+                    <div th:if="${#fields.hasErrors('status')}"
+                         style="margin-bottom: 25px" class="text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('status')}" th:text="'status' + ${err}" />
+                        </ul>
+                    </div>
+
+                    <!-- Note -->
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" th:field="*{note}" placeholder="Case Note (*)" class="form-control" th:errorclass="fieldError" />
+                    </div>
+                    <div th:if="${#fields.hasErrors('note')}"
+                         style="margin-bottom: 25px" class="text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('note')}" th:text="'Case Note ' + ${err}" />
+                        </ul>
+                    </div>
+
+
+                    <!-- Register Button -->
+                    <div style="margin-top: 10px" class="form-group">
+                        <div class="col-sm-6 controls">
+                            <button type="submit" class="btn btn-primary">Add Case</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<br/>
+<br/>
+<div th:replace="footer :: footer"/>
+</body>
+</html>
