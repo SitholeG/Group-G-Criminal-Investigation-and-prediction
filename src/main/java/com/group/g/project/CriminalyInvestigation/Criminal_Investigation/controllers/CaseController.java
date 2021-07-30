@@ -54,9 +54,7 @@ public class CaseController {
 		ModelMapper mapper = new ModelMapper();
 		Collection<User> users = userService.getOfficerUsers();
 		Collection<String> oficername = new ArrayList<>();
-		//Collection<CrmUser> crmUser = new ArrayList<>();
-		//Collection<CrmUser> crmUser = mapper.map(users,new TypeToken<List<CrmUser>>(){}.getType());
-		//mapper.map()
+
 		for(User x: users) {
 			for(Role i: x.getRoles())
 			if (i.getName().equals("ROLE_OFFICER")){
@@ -64,12 +62,9 @@ public class CaseController {
 			}
 
 		}
-//		List<User> users = new ArrayList<>();
-//		userRepo.findAll().forEach(users::add);
 
 		CaseDto aCase = new CaseDto();
 
-		//aCase.setUsers(crmUser);
 		aCase.setOfficerName(oficername);
 		theModel.addAttribute("caseDto", aCase);
 
@@ -169,9 +164,6 @@ public class CaseController {
 
 		// form validation
 		if (theBindingResult.hasErrors()){
-//			caseDto theCase = caseService.getCase(suspectDto.getCaseDto().getId());
-//			SuspectDto suspectDto = new SuspectDto();
-//			suspectDto.setCaseDto(theCase);
 			theModel.addAttribute("suspect", suspectDto);
 			return "Add-suspect-form";
 		}
@@ -193,7 +185,6 @@ public class CaseController {
 		evidenceDto.setDate(new Date());
 		evidenceDto.setSuspect(suspectDto);
 		evidenceDto.setCaseDto(caseDto);
-		//evidenceDto.setUserDto(mapper.map(user, new TypeToken<UserDto>(){}.getType()));
 		logger.info("Processing Add evidence form for: " + evidence);
 
 
